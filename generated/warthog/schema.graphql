@@ -1,98 +1,3 @@
-type Account implements BaseGraphQLObject {
-  id: ID!
-  createdAt: DateTime!
-  createdById: String!
-  updatedAt: DateTime
-  updatedById: String
-  deletedAt: DateTime
-  deletedById: String
-  version: Int!
-  wallet: String!
-  balance: BigInt!
-  historicalBalances: [HistoricalBalance!]!
-}
-
-type AccountConnection {
-  totalCount: Int!
-  edges: [AccountEdge!]!
-  pageInfo: PageInfo!
-}
-
-input AccountCreateInput {
-  wallet: String!
-  balance: String!
-}
-
-type AccountEdge {
-  node: Account!
-  cursor: String!
-}
-
-enum AccountOrderByInput {
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  deletedAt_ASC
-  deletedAt_DESC
-  wallet_ASC
-  wallet_DESC
-  balance_ASC
-  balance_DESC
-}
-
-input AccountUpdateInput {
-  wallet: String
-  balance: String
-}
-
-input AccountWhereInput {
-  id_eq: ID
-  id_in: [ID!]
-  createdAt_eq: DateTime
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  createdById_eq: ID
-  createdById_in: [ID!]
-  updatedAt_eq: DateTime
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  updatedById_eq: ID
-  updatedById_in: [ID!]
-  deletedAt_all: Boolean
-  deletedAt_eq: DateTime
-  deletedAt_lt: DateTime
-  deletedAt_lte: DateTime
-  deletedAt_gt: DateTime
-  deletedAt_gte: DateTime
-  deletedById_eq: ID
-  deletedById_in: [ID!]
-  wallet_eq: String
-  wallet_contains: String
-  wallet_startsWith: String
-  wallet_endsWith: String
-  wallet_in: [String!]
-  balance_eq: BigInt
-  balance_gt: BigInt
-  balance_gte: BigInt
-  balance_lt: BigInt
-  balance_lte: BigInt
-  balance_in: [BigInt!]
-  historicalBalances_none: HistoricalBalanceWhereInput
-  historicalBalances_some: HistoricalBalanceWhereInput
-  historicalBalances_every: HistoricalBalanceWhereInput
-  AND: [AccountWhereInput!]
-  OR: [AccountWhereInput!]
-}
-
-input AccountWhereUniqueInput {
-  id: ID!
-}
-
 interface BaseGraphQLObject {
   id: ID!
   createdAt: DateTime!
@@ -162,11 +67,7 @@ interface DeleteResponse {
   id: ID!
 }
 
-type Hello {
-  greeting: String!
-}
-
-type HistoricalBalance implements BaseGraphQLObject {
+type NftEntity implements BaseGraphQLObject {
   id: ID!
   createdAt: DateTime!
   createdById: String!
@@ -175,51 +76,85 @@ type HistoricalBalance implements BaseGraphQLObject {
   deletedAt: DateTime
   deletedById: String
   version: Int!
-  account: Account!
-  accountId: String!
-  balance: BigInt!
-  timestamp: BigInt!
+  name: String
+  instance: String
+  transferable: Int
+  issuer: String
+  sn: String
+  metadata: String
+  currentOwner: String
+  price: BigInt
+  burned: Boolean
+  blockNumber: BigInt
 }
 
-type HistoricalBalanceConnection {
+type NftEntityConnection {
   totalCount: Int!
-  edges: [HistoricalBalanceEdge!]!
+  edges: [NftEntityEdge!]!
   pageInfo: PageInfo!
 }
 
-input HistoricalBalanceCreateInput {
-  account: ID!
-  balance: String!
-  timestamp: String!
+input NftEntityCreateInput {
+  name: String
+  instance: String
+  transferable: Float
+  issuer: String
+  sn: String
+  metadata: String
+  currentOwner: String
+  price: String
+  burned: Boolean
+  blockNumber: String
 }
 
-type HistoricalBalanceEdge {
-  node: HistoricalBalance!
+type NftEntityEdge {
+  node: NftEntity!
   cursor: String!
 }
 
-enum HistoricalBalanceOrderByInput {
+enum NftEntityOrderByInput {
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
   deletedAt_ASC
   deletedAt_DESC
-  account_ASC
-  account_DESC
-  balance_ASC
-  balance_DESC
-  timestamp_ASC
-  timestamp_DESC
+  name_ASC
+  name_DESC
+  instance_ASC
+  instance_DESC
+  transferable_ASC
+  transferable_DESC
+  issuer_ASC
+  issuer_DESC
+  sn_ASC
+  sn_DESC
+  metadata_ASC
+  metadata_DESC
+  currentOwner_ASC
+  currentOwner_DESC
+  price_ASC
+  price_DESC
+  burned_ASC
+  burned_DESC
+  blockNumber_ASC
+  blockNumber_DESC
 }
 
-input HistoricalBalanceUpdateInput {
-  account: ID
-  balance: String
-  timestamp: String
+input NftEntityUpdateInput {
+  name: String
+  instance: String
+  transferable: Float
+  issuer: String
+  sn: String
+  metadata: String
+  currentOwner: String
+  price: String
+  burned: Boolean
+  blockNumber: String
 }
 
-input HistoricalBalanceWhereInput {
+input NftEntityWhereInput {
   id_eq: ID
   id_in: [ID!]
   createdAt_eq: DateTime
@@ -244,24 +179,61 @@ input HistoricalBalanceWhereInput {
   deletedAt_gte: DateTime
   deletedById_eq: ID
   deletedById_in: [ID!]
-  balance_eq: BigInt
-  balance_gt: BigInt
-  balance_gte: BigInt
-  balance_lt: BigInt
-  balance_lte: BigInt
-  balance_in: [BigInt!]
-  timestamp_eq: BigInt
-  timestamp_gt: BigInt
-  timestamp_gte: BigInt
-  timestamp_lt: BigInt
-  timestamp_lte: BigInt
-  timestamp_in: [BigInt!]
-  account: AccountWhereInput
-  AND: [HistoricalBalanceWhereInput!]
-  OR: [HistoricalBalanceWhereInput!]
+  name_eq: String
+  name_contains: String
+  name_startsWith: String
+  name_endsWith: String
+  name_in: [String!]
+  instance_eq: String
+  instance_contains: String
+  instance_startsWith: String
+  instance_endsWith: String
+  instance_in: [String!]
+  transferable_eq: Int
+  transferable_gt: Int
+  transferable_gte: Int
+  transferable_lt: Int
+  transferable_lte: Int
+  transferable_in: [Int!]
+  issuer_eq: String
+  issuer_contains: String
+  issuer_startsWith: String
+  issuer_endsWith: String
+  issuer_in: [String!]
+  sn_eq: String
+  sn_contains: String
+  sn_startsWith: String
+  sn_endsWith: String
+  sn_in: [String!]
+  metadata_eq: String
+  metadata_contains: String
+  metadata_startsWith: String
+  metadata_endsWith: String
+  metadata_in: [String!]
+  currentOwner_eq: String
+  currentOwner_contains: String
+  currentOwner_startsWith: String
+  currentOwner_endsWith: String
+  currentOwner_in: [String!]
+  price_eq: BigInt
+  price_gt: BigInt
+  price_gte: BigInt
+  price_lt: BigInt
+  price_lte: BigInt
+  price_in: [BigInt!]
+  burned_eq: Boolean
+  burned_in: [Boolean!]
+  blockNumber_eq: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  AND: [NftEntityWhereInput!]
+  OR: [NftEntityWhereInput!]
 }
 
-input HistoricalBalanceWhereUniqueInput {
+input NftEntityWhereUniqueInput {
   id: ID!
 }
 
@@ -280,13 +252,122 @@ type ProcessorState {
 }
 
 type Query {
-  accounts(offset: Int, limit: Int = 50, where: AccountWhereInput, orderBy: [AccountOrderByInput!]): [Account!]!
-  accountByUniqueInput(where: AccountWhereUniqueInput!): Account
-  accountsConnection(first: Int, after: String, last: Int, before: String, where: AccountWhereInput, orderBy: [AccountOrderByInput!]): AccountConnection!
-  historicalBalances(offset: Int, limit: Int = 50, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): [HistoricalBalance!]!
-  historicalBalanceByUniqueInput(where: HistoricalBalanceWhereUniqueInput!): HistoricalBalance
-  historicalBalancesConnection(first: Int, after: String, last: Int, before: String, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): HistoricalBalanceConnection!
-  hello: Hello!
+  nftEntities(offset: Int, limit: Int = 50, where: NftEntityWhereInput, orderBy: [NftEntityOrderByInput!]): [NftEntity!]!
+  nftEntityByUniqueInput(where: NftEntityWhereUniqueInput!): NftEntity
+  nftEntitiesConnection(first: Int, after: String, last: Int, before: String, where: NftEntityWhereInput, orderBy: [NftEntityOrderByInput!]): NftEntityConnection!
+  remarkEntities(offset: Int, limit: Int = 50, where: RemarkEntityWhereInput, orderBy: [RemarkEntityOrderByInput!]): [RemarkEntity!]!
+  remarkEntityByUniqueInput(where: RemarkEntityWhereUniqueInput!): RemarkEntity
+  remarkEntitiesConnection(first: Int, after: String, last: Int, before: String, where: RemarkEntityWhereInput, orderBy: [RemarkEntityOrderByInput!]): RemarkEntityConnection!
+}
+
+type RemarkEntity implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+  value: String!
+  caller: String!
+  blockNumber: String!
+  interaction: String
+}
+
+type RemarkEntityConnection {
+  totalCount: Int!
+  edges: [RemarkEntityEdge!]!
+  pageInfo: PageInfo!
+}
+
+input RemarkEntityCreateInput {
+  value: String!
+  caller: String!
+  blockNumber: String!
+  interaction: String
+}
+
+type RemarkEntityEdge {
+  node: RemarkEntity!
+  cursor: String!
+}
+
+enum RemarkEntityOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  value_ASC
+  value_DESC
+  caller_ASC
+  caller_DESC
+  blockNumber_ASC
+  blockNumber_DESC
+  interaction_ASC
+  interaction_DESC
+}
+
+input RemarkEntityUpdateInput {
+  value: String
+  caller: String
+  blockNumber: String
+  interaction: String
+}
+
+input RemarkEntityWhereInput {
+  id_eq: ID
+  id_in: [ID!]
+  createdAt_eq: DateTime
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdById_eq: ID
+  createdById_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedById_eq: ID
+  updatedById_in: [ID!]
+  deletedAt_all: Boolean
+  deletedAt_eq: DateTime
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  deletedById_eq: ID
+  deletedById_in: [ID!]
+  value_eq: String
+  value_contains: String
+  value_startsWith: String
+  value_endsWith: String
+  value_in: [String!]
+  caller_eq: String
+  caller_contains: String
+  caller_startsWith: String
+  caller_endsWith: String
+  caller_in: [String!]
+  blockNumber_eq: String
+  blockNumber_contains: String
+  blockNumber_startsWith: String
+  blockNumber_endsWith: String
+  blockNumber_in: [String!]
+  interaction_eq: String
+  interaction_contains: String
+  interaction_startsWith: String
+  interaction_endsWith: String
+  interaction_in: [String!]
+  AND: [RemarkEntityWhereInput!]
+  OR: [RemarkEntityWhereInput!]
+}
+
+input RemarkEntityWhereUniqueInput {
+  id: ID!
 }
 
 type StandardDeleteResponse {

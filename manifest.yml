@@ -6,17 +6,17 @@ hydraVersion: "4"
 typegen:
   metadata:
     source: wss://kusama-rpc.polkadot.io/
-  events:
-    - balances.Transfer
   calls:
-    - timestamp.set
+    - utility.batch
+    - utility.batchAll
+    - system.remark
   outDir: chain
 
-mappings:
-  mappingsModule: mappings
-  eventHandlers:
-    - event: balances.Transfer
-      handler: balancesTransfer
-  extrinsicHandlers:
-  preBlockHooks:
-  postBlockHooks:
+# mappings:
+#   mappingsModule: mappings
+#   eventHandlers:
+#     - event: balances.Transfer
+#       handler: balancesTransfer
+#   extrinsicHandlers:
+#   preBlockHooks:
+#   postBlockHooks:

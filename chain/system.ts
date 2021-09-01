@@ -3,13 +3,12 @@ import { SubstrateEvent, SubstrateExtrinsic } from "@subsquid/hydra-common";
 import { Codec } from "@polkadot/types/types";
 import { typeRegistry } from ".";
 
-import { Compact } from "@polkadot/types";
-import { Moment } from "@polkadot/types/interfaces";
+import { Bytes } from "@polkadot/types";
 
-export namespace Timestamp {
-  export class SetCall {
+export namespace System {
+  export class RemarkCall {
     public readonly extrinsic: SubstrateExtrinsic;
-    public readonly expectedArgTypes = ["Compact<Moment>"];
+    public readonly expectedArgTypes = ["Bytes"];
 
     constructor(public readonly ctx: SubstrateEvent) {
       if (ctx.extrinsic === undefined) {
@@ -18,8 +17,8 @@ export namespace Timestamp {
       this.extrinsic = ctx.extrinsic;
     }
 
-    get args(): Set_Args {
-      return new Set_Args(this.extrinsic);
+    get args(): Remark_Args {
+      return new Remark_Args(this.extrinsic);
     }
 
     validateArgs(): boolean {
@@ -36,15 +35,13 @@ export namespace Timestamp {
     }
   }
 
-  class Set_Args {
+  class Remark_Args {
     constructor(public readonly extrinsic: SubstrateExtrinsic) {}
 
-    get now(): Compact<Moment> {
-      return createTypeUnsafe<Compact<Moment> & Codec>(
-        typeRegistry,
-        "Compact<Moment>",
-        [this.extrinsic.args[0].value]
-      );
+    get remark(): Bytes {
+      return createTypeUnsafe<Bytes & Codec>(typeRegistry, "Bytes", [
+        this.extrinsic.args[0].value,
+      ]);
     }
   }
 }

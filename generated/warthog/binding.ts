@@ -6,13 +6,12 @@ import { IResolvers } from 'graphql-tools/dist/Interfaces'
 import * as schema from  './schema.graphql'
 
 export interface Query {
-    accounts: <T = Array<Account>>(args: { offset?: Int | null, limit?: Int | null, where?: AccountWhereInput | null, orderBy?: Array<AccountOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    accountByUniqueInput: <T = Account | null>(args: { where: AccountWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    accountsConnection: <T = AccountConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: AccountWhereInput | null, orderBy?: Array<AccountOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    historicalBalances: <T = Array<HistoricalBalance>>(args: { offset?: Int | null, limit?: Int | null, where?: HistoricalBalanceWhereInput | null, orderBy?: Array<HistoricalBalanceOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    historicalBalanceByUniqueInput: <T = HistoricalBalance | null>(args: { where: HistoricalBalanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    historicalBalancesConnection: <T = HistoricalBalanceConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: HistoricalBalanceWhereInput | null, orderBy?: Array<HistoricalBalanceOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    hello: <T = Hello>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    nftEntities: <T = Array<NftEntity>>(args: { offset?: Int | null, limit?: Int | null, where?: NftEntityWhereInput | null, orderBy?: Array<NftEntityOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    nftEntityByUniqueInput: <T = NftEntity | null>(args: { where: NftEntityWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    nftEntitiesConnection: <T = NftEntityConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: NftEntityWhereInput | null, orderBy?: Array<NftEntityOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    remarkEntities: <T = Array<RemarkEntity>>(args: { offset?: Int | null, limit?: Int | null, where?: RemarkEntityWhereInput | null, orderBy?: Array<RemarkEntityOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    remarkEntityByUniqueInput: <T = RemarkEntity | null>(args: { where: RemarkEntityWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    remarkEntitiesConnection: <T = RemarkEntityConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: RemarkEntityWhereInput | null, orderBy?: Array<RemarkEntityOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {}
@@ -45,86 +44,47 @@ export const Binding = makeBindingClass<BindingConstructor<Binding>>({ schema: s
  * Types
 */
 
-export type AccountOrderByInput =   'createdAt_ASC' |
+export type NftEntityOrderByInput =   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'deletedAt_ASC' |
   'deletedAt_DESC' |
-  'wallet_ASC' |
-  'wallet_DESC' |
-  'balance_ASC' |
-  'balance_DESC'
+  'name_ASC' |
+  'name_DESC' |
+  'instance_ASC' |
+  'instance_DESC' |
+  'transferable_ASC' |
+  'transferable_DESC' |
+  'issuer_ASC' |
+  'issuer_DESC' |
+  'sn_ASC' |
+  'sn_DESC' |
+  'metadata_ASC' |
+  'metadata_DESC' |
+  'currentOwner_ASC' |
+  'currentOwner_DESC' |
+  'price_ASC' |
+  'price_DESC' |
+  'burned_ASC' |
+  'burned_DESC' |
+  'blockNumber_ASC' |
+  'blockNumber_DESC'
 
-export type HistoricalBalanceOrderByInput =   'createdAt_ASC' |
+export type RemarkEntityOrderByInput =   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'deletedAt_ASC' |
   'deletedAt_DESC' |
-  'account_ASC' |
-  'account_DESC' |
-  'balance_ASC' |
-  'balance_DESC' |
-  'timestamp_ASC' |
-  'timestamp_DESC'
-
-export interface AccountCreateInput {
-  wallet: String
-  balance: String
-}
-
-export interface AccountUpdateInput {
-  wallet?: String | null
-  balance?: String | null
-}
-
-export interface AccountWhereInput {
-  id_eq?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  createdAt_eq?: DateTime | null
-  createdAt_lt?: DateTime | null
-  createdAt_lte?: DateTime | null
-  createdAt_gt?: DateTime | null
-  createdAt_gte?: DateTime | null
-  createdById_eq?: ID_Input | null
-  createdById_in?: ID_Output[] | ID_Output | null
-  updatedAt_eq?: DateTime | null
-  updatedAt_lt?: DateTime | null
-  updatedAt_lte?: DateTime | null
-  updatedAt_gt?: DateTime | null
-  updatedAt_gte?: DateTime | null
-  updatedById_eq?: ID_Input | null
-  updatedById_in?: ID_Output[] | ID_Output | null
-  deletedAt_all?: Boolean | null
-  deletedAt_eq?: DateTime | null
-  deletedAt_lt?: DateTime | null
-  deletedAt_lte?: DateTime | null
-  deletedAt_gt?: DateTime | null
-  deletedAt_gte?: DateTime | null
-  deletedById_eq?: ID_Input | null
-  deletedById_in?: ID_Output[] | ID_Output | null
-  wallet_eq?: String | null
-  wallet_contains?: String | null
-  wallet_startsWith?: String | null
-  wallet_endsWith?: String | null
-  wallet_in?: String[] | String | null
-  balance_eq?: BigInt | null
-  balance_gt?: BigInt | null
-  balance_gte?: BigInt | null
-  balance_lt?: BigInt | null
-  balance_lte?: BigInt | null
-  balance_in?: BigInt[] | BigInt | null
-  historicalBalances_none?: HistoricalBalanceWhereInput | null
-  historicalBalances_some?: HistoricalBalanceWhereInput | null
-  historicalBalances_every?: HistoricalBalanceWhereInput | null
-  AND?: AccountWhereInput[] | AccountWhereInput | null
-  OR?: AccountWhereInput[] | AccountWhereInput | null
-}
-
-export interface AccountWhereUniqueInput {
-  id: ID_Output
-}
+  'value_ASC' |
+  'value_DESC' |
+  'caller_ASC' |
+  'caller_DESC' |
+  'blockNumber_ASC' |
+  'blockNumber_DESC' |
+  'interaction_ASC' |
+  'interaction_DESC'
 
 export interface BaseWhereInput {
   id_eq?: String | null
@@ -150,19 +110,33 @@ export interface BaseWhereInput {
   deletedById_eq?: String | null
 }
 
-export interface HistoricalBalanceCreateInput {
-  account: ID_Output
-  balance: String
-  timestamp: String
+export interface NftEntityCreateInput {
+  name?: String | null
+  instance?: String | null
+  transferable?: Float | null
+  issuer?: String | null
+  sn?: String | null
+  metadata?: String | null
+  currentOwner?: String | null
+  price?: String | null
+  burned?: Boolean | null
+  blockNumber?: String | null
 }
 
-export interface HistoricalBalanceUpdateInput {
-  account?: ID_Input | null
-  balance?: String | null
-  timestamp?: String | null
+export interface NftEntityUpdateInput {
+  name?: String | null
+  instance?: String | null
+  transferable?: Float | null
+  issuer?: String | null
+  sn?: String | null
+  metadata?: String | null
+  currentOwner?: String | null
+  price?: String | null
+  burned?: Boolean | null
+  blockNumber?: String | null
 }
 
-export interface HistoricalBalanceWhereInput {
+export interface NftEntityWhereInput {
   id_eq?: ID_Input | null
   id_in?: ID_Output[] | ID_Output | null
   createdAt_eq?: DateTime | null
@@ -187,24 +161,128 @@ export interface HistoricalBalanceWhereInput {
   deletedAt_gte?: DateTime | null
   deletedById_eq?: ID_Input | null
   deletedById_in?: ID_Output[] | ID_Output | null
-  balance_eq?: BigInt | null
-  balance_gt?: BigInt | null
-  balance_gte?: BigInt | null
-  balance_lt?: BigInt | null
-  balance_lte?: BigInt | null
-  balance_in?: BigInt[] | BigInt | null
-  timestamp_eq?: BigInt | null
-  timestamp_gt?: BigInt | null
-  timestamp_gte?: BigInt | null
-  timestamp_lt?: BigInt | null
-  timestamp_lte?: BigInt | null
-  timestamp_in?: BigInt[] | BigInt | null
-  account?: AccountWhereInput | null
-  AND?: HistoricalBalanceWhereInput[] | HistoricalBalanceWhereInput | null
-  OR?: HistoricalBalanceWhereInput[] | HistoricalBalanceWhereInput | null
+  name_eq?: String | null
+  name_contains?: String | null
+  name_startsWith?: String | null
+  name_endsWith?: String | null
+  name_in?: String[] | String | null
+  instance_eq?: String | null
+  instance_contains?: String | null
+  instance_startsWith?: String | null
+  instance_endsWith?: String | null
+  instance_in?: String[] | String | null
+  transferable_eq?: Int | null
+  transferable_gt?: Int | null
+  transferable_gte?: Int | null
+  transferable_lt?: Int | null
+  transferable_lte?: Int | null
+  transferable_in?: Int[] | Int | null
+  issuer_eq?: String | null
+  issuer_contains?: String | null
+  issuer_startsWith?: String | null
+  issuer_endsWith?: String | null
+  issuer_in?: String[] | String | null
+  sn_eq?: String | null
+  sn_contains?: String | null
+  sn_startsWith?: String | null
+  sn_endsWith?: String | null
+  sn_in?: String[] | String | null
+  metadata_eq?: String | null
+  metadata_contains?: String | null
+  metadata_startsWith?: String | null
+  metadata_endsWith?: String | null
+  metadata_in?: String[] | String | null
+  currentOwner_eq?: String | null
+  currentOwner_contains?: String | null
+  currentOwner_startsWith?: String | null
+  currentOwner_endsWith?: String | null
+  currentOwner_in?: String[] | String | null
+  price_eq?: BigInt | null
+  price_gt?: BigInt | null
+  price_gte?: BigInt | null
+  price_lt?: BigInt | null
+  price_lte?: BigInt | null
+  price_in?: BigInt[] | BigInt | null
+  burned_eq?: Boolean | null
+  burned_in?: Boolean[] | Boolean | null
+  blockNumber_eq?: BigInt | null
+  blockNumber_gt?: BigInt | null
+  blockNumber_gte?: BigInt | null
+  blockNumber_lt?: BigInt | null
+  blockNumber_lte?: BigInt | null
+  blockNumber_in?: BigInt[] | BigInt | null
+  AND?: NftEntityWhereInput[] | NftEntityWhereInput | null
+  OR?: NftEntityWhereInput[] | NftEntityWhereInput | null
 }
 
-export interface HistoricalBalanceWhereUniqueInput {
+export interface NftEntityWhereUniqueInput {
+  id: ID_Output
+}
+
+export interface RemarkEntityCreateInput {
+  value: String
+  caller: String
+  blockNumber: String
+  interaction?: String | null
+}
+
+export interface RemarkEntityUpdateInput {
+  value?: String | null
+  caller?: String | null
+  blockNumber?: String | null
+  interaction?: String | null
+}
+
+export interface RemarkEntityWhereInput {
+  id_eq?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  createdAt_eq?: DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  createdById_eq?: ID_Input | null
+  createdById_in?: ID_Output[] | ID_Output | null
+  updatedAt_eq?: DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
+  updatedById_eq?: ID_Input | null
+  updatedById_in?: ID_Output[] | ID_Output | null
+  deletedAt_all?: Boolean | null
+  deletedAt_eq?: DateTime | null
+  deletedAt_lt?: DateTime | null
+  deletedAt_lte?: DateTime | null
+  deletedAt_gt?: DateTime | null
+  deletedAt_gte?: DateTime | null
+  deletedById_eq?: ID_Input | null
+  deletedById_in?: ID_Output[] | ID_Output | null
+  value_eq?: String | null
+  value_contains?: String | null
+  value_startsWith?: String | null
+  value_endsWith?: String | null
+  value_in?: String[] | String | null
+  caller_eq?: String | null
+  caller_contains?: String | null
+  caller_startsWith?: String | null
+  caller_endsWith?: String | null
+  caller_in?: String[] | String | null
+  blockNumber_eq?: String | null
+  blockNumber_contains?: String | null
+  blockNumber_startsWith?: String | null
+  blockNumber_endsWith?: String | null
+  blockNumber_in?: String[] | String | null
+  interaction_eq?: String | null
+  interaction_contains?: String | null
+  interaction_startsWith?: String | null
+  interaction_endsWith?: String | null
+  interaction_in?: String[] | String | null
+  AND?: RemarkEntityWhereInput[] | RemarkEntityWhereInput | null
+  OR?: RemarkEntityWhereInput[] | RemarkEntityWhereInput | null
+}
+
+export interface RemarkEntityWhereUniqueInput {
   id: ID_Output
 }
 
@@ -221,31 +299,6 @@ export interface BaseGraphQLObject {
 
 export interface DeleteResponse {
   id: ID_Output
-}
-
-export interface Account extends BaseGraphQLObject {
-  id: ID_Output
-  createdAt: DateTime
-  createdById: String
-  updatedAt?: DateTime | null
-  updatedById?: String | null
-  deletedAt?: DateTime | null
-  deletedById?: String | null
-  version: Int
-  wallet: String
-  balance: BigInt
-  historicalBalances: Array<HistoricalBalance>
-}
-
-export interface AccountConnection {
-  totalCount: Int
-  edges: Array<AccountEdge>
-  pageInfo: PageInfo
-}
-
-export interface AccountEdge {
-  node: Account
-  cursor: String
 }
 
 export interface BaseModel extends BaseGraphQLObject {
@@ -270,11 +323,7 @@ export interface BaseModelUUID extends BaseGraphQLObject {
   version: Int
 }
 
-export interface Hello {
-  greeting: String
-}
-
-export interface HistoricalBalance extends BaseGraphQLObject {
+export interface NftEntity extends BaseGraphQLObject {
   id: ID_Output
   createdAt: DateTime
   createdById: String
@@ -283,20 +332,26 @@ export interface HistoricalBalance extends BaseGraphQLObject {
   deletedAt?: DateTime | null
   deletedById?: String | null
   version: Int
-  account: Account
-  accountId: String
-  balance: BigInt
-  timestamp: BigInt
+  name?: String | null
+  instance?: String | null
+  transferable?: Int | null
+  issuer?: String | null
+  sn?: String | null
+  metadata?: String | null
+  currentOwner?: String | null
+  price?: BigInt | null
+  burned?: Boolean | null
+  blockNumber?: BigInt | null
 }
 
-export interface HistoricalBalanceConnection {
+export interface NftEntityConnection {
   totalCount: Int
-  edges: Array<HistoricalBalanceEdge>
+  edges: Array<NftEntityEdge>
   pageInfo: PageInfo
 }
 
-export interface HistoricalBalanceEdge {
-  node: HistoricalBalance
+export interface NftEntityEdge {
+  node: NftEntity
   cursor: String
 }
 
@@ -312,6 +367,32 @@ export interface ProcessorState {
   lastProcessedEvent: String
   indexerHead: Float
   chainHead: Float
+}
+
+export interface RemarkEntity extends BaseGraphQLObject {
+  id: ID_Output
+  createdAt: DateTime
+  createdById: String
+  updatedAt?: DateTime | null
+  updatedById?: String | null
+  deletedAt?: DateTime | null
+  deletedById?: String | null
+  version: Int
+  value: String
+  caller: String
+  blockNumber: String
+  interaction?: String | null
+}
+
+export interface RemarkEntityConnection {
+  totalCount: Int
+  edges: Array<RemarkEntityEdge>
+  pageInfo: PageInfo
+}
+
+export interface RemarkEntityEdge {
+  node: RemarkEntity
+  cursor: String
 }
 
 export interface StandardDeleteResponse {

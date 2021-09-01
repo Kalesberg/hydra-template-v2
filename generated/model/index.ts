@@ -1,4 +1,7 @@
-import { Account } from '../modules/account/account.model';
-export { Account };
-import { HistoricalBalance } from '../modules/historical-balance/historical-balance.model';
-export { HistoricalBalance };
+import { NftEntity } from '../modules/nft-entity/nft-entity.model';
+export { NftEntity };
+import { RemarkEntity } from '../modules/remark-entity/remark-entity.model';
+export { RemarkEntity };
+
+import { Interaction } from '../modules/enums/enums';
+export { Interaction };
